@@ -154,28 +154,3 @@ function render() {
     game.debug.text('1-3 Switch Layers. SPACE = Show All. Cursors = Move Camera', 16, 570);
 
 }
-
-function createTileSelector() {
-
-    //  Our tile selection window
-    var tileSelector = game.add.group();
-
-    var tileSelectorBackground = game.make.graphics();
-    tileSelectorBackground.beginFill(0x000000, 0.5);
-    tileSelectorBackground.drawRect(0, 0, 800, 34);
-    tileSelectorBackground.endFill();
-
-    tileSelector.add(tileSelectorBackground);
-
-    var tileStrip = tileSelector.create(1, 1, 'ground_1x1');
-    tileStrip.inputEnabled = true;
-    tileStrip.events.onInputDown.add(pickTile, this);
-
-    tileSelector.fixedToCamera = true;
-
-    //  Our painting marker
-    marker = game.add.graphics();
-    marker.lineStyle(2, 0x000000, 1);
-    marker.drawRect(0, 0, 32, 32);
-
-}
