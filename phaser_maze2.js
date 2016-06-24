@@ -33,6 +33,12 @@ var explosions;
 var candies;
 var baddies;
 
+// added mapsize object
+var map_size =
+    {
+        x: 20,
+        y: 30
+    };
 
 
 
@@ -49,14 +55,14 @@ function create() {
     // One maze cell corresponds to one phaser tile.
     // The X (horizontal) dimension can less than or equal to the Y (vertical), 
     // but not greater or a range error happens
-	display(maze(20,20));
+	display(maze(map_size.x, map_size.y));
 
 
 	player = game.add.sprite(14, 41, 'chick');
 	player.anchor.setTo(0.5, 0.5);
-  player.animations.add('walk');
-  player.animations.play('walk', 10, true);
-  player.body.immovable = true;
+      player.animations.add('walk');
+      player.animations.play('walk', 10, true);
+      player.body.immovable = true;
 
   
 
@@ -93,7 +99,7 @@ function create() {
 
 
 
-	coin = game.add.sprite(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'coin_spin');
+    coin = game.add.sprite(41+(game.rnd.integerInRange(0,10)*54), 41+(game.rnd.integerInRange(0,10)*54), 'coin_spin');
   coin.anchor.setTo(0.5, 0.5);
   coin.animations.add('spin');
   coin.animations.play('spin', 10, true);
