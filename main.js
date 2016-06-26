@@ -103,14 +103,20 @@ function movePlayer(chick) {
 function maze(x,y) {
 	var p = x;
 	var q = y;
+function maze(x,y) {
+	var p = x;
+	var q = y;
 	var north = map.getTile(p,q-1).index == 8;
+	var south = map.getTile(p,q+1).index == 8;
+	var east = map.getTile(p+1,q).index == 8;
+	var west = map.getTile(p-1,q).index == 8;
 	
 	var walk = game.rnd.integerInRange(1,4);
-	//check that there is a direction to move to
-	if(map.getTile(p,q-1).index == 8 ||	map.getTile(p,q+1).index == 8 || map.getTile(p+1,q).index == 8 || map.getTile(p-1,q).index == 8){
-		//TODO: generate the tile and recursively call depending on which direction we walk.
+	if(north.index == 8 ||	east.index == 8 || south.index == 8 || west.index == 8){
+		//find direction to walk then recursively call
 	}
-	//TODO else if no direction we can walk then return.
+	//else no direction to go and return.
+
 }
  
 function display(m) {
