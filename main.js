@@ -16,17 +16,12 @@ var player;
 function create() {
 
     map = game.add.tilemap('matching');
-
     tileset = game.add.tileset('tiles');
-    
     layer = game.add.tilemapLayer(0, 0, 840, 560, tileset, map, 0);
-
-	
 	player.anchor.setTo(0.5, 0.5);
 	player.body.immovable = true;
-
-
     cursors = game.input.keyboard.createCursorKeys();
+	maze(0,1,1,1);
 }
 
 
@@ -100,22 +95,192 @@ function movePlayer(chick) {
 
 }
 
-function maze(x,y) {
-	var p = x;
-	var q = y;
-function maze(x,y) {
-	var p = x;
-	var q = y;
-	var north = map.getTile(p,q-1).index == 8;
-	var south = map.getTile(p,q+1).index == 8;
-	var east = map.getTile(p+1,q).index == 8;
-	var west = map.getTile(p-1,q).index == 8;
+function maze(x,y, prevX, prevY) {
+	currentTile = map.getTile(x,y);
+
+	var north = map.getTile(x,y-1).index == 8;
+	var south = map.getTile(x,y+1).index == 8;
+	var east = map.getTile(x+1,y).index == 8;
+	var west = map.getTile(x-1,y).index == 8;
 	
 	var walk = game.rnd.integerInRange(1,4);
 	if(north.index == 8 ||	east.index == 8 || south.index == 8 || west.index == 8){
-		//find direction to walk then recursively call
+		//going up
+		if(north.index == 8 && walk == 1){
+			//from below
+			if(prevY == y+1){
+				currentTile.index = 3;
+				currentTile.collideLeft = true;
+				curretnTile.collideRight = true;
+			}
+			//from the left
+			if(prevX == x-1){
+				currentTile.index = 4;
+				currentTile.collideDown = true;
+				curretnTile.collideRight = true;
+			}
+			//from the right
+			if(prevX == x+1){
+				currentTile.index = 5;
+				currentTile.collideDown = true;
+				curretnTile.collideLeft = true;
+			}
+			maze(x, y-1, x, y);
+		}
+		if(south.index == 8 && walk == 2){
+			//from above
+			if(prevY == y-1){
+				currentTile.index = 3;
+				currentTile.collideLeft = true;
+				curretnTile.collideRight = true;
+			}
+			//from the left
+			if(prevX == x-1){
+				currentTile.index = 7;
+				currentTile.collideUp = true;
+				curretnTile.collideRight = true;
+			}
+			//from the right
+			if(prevX == x+1){
+				currentTile.index = 6;
+				currentTile.collideUp = true;
+				curretnTile.collideLeft = true;
+			}
+			maze(x, y+1, x, y);
+		}
+		if(east.index == 8 && walk == 3){
+			//from above
+			if(prevY == y-1){
+				currentTile.index = 5;
+				currentTile.collideLeft = true;
+				curretnTile.collideDown = true;
+			}
+			//from below
+			if(prevY == y+1){
+				currentTile.index = 6;
+				currentTile.collideUp = true;
+				curretnTile.collideLeft = true;
+			}
+			//from the left
+			if(prevX == x-1){
+				currentTile.index = 2;
+				currentTile.collideUp = true;
+				curretnTile.collideDown = true;
+			}
+			maze(x+1, y, x, y);
+		}
+		if(west.index == 8 && walk == 4){
+			//from above
+			if(prevY == y-1){
+				currentTile.index = 4;
+				currentTile.collideRight = true;
+				curretnTile.collideDown = true;
+			}
+			//from below
+			if(prevY == y+1){
+				currentTile.index = 7;
+				currentTile.collideUp = true;
+				curretnTile.collideRight = true;
+			}
+			//from the right
+			if(prevX == x+1){
+				currentTile.index = 2;
+				currentTile.collideUp = true;
+				curretnTile.collideDown = true;
+			}
+			maze(x-1, y, x, y);
+		}
+		
+		//going up
+		if(north.index == 8){
+			//from below
+			if(prevY == y+1){
+				currentTile.index = 3;
+				currentTile.collideLeft = true;
+				curretnTile.collideRight = true;
+			}
+			//from the left
+			if(prevX == x-1){
+				currentTile.index = 4;
+				currentTile.collideDown = true;
+				curretnTile.collideRight = true;
+			}
+			//from the right
+			if(prevX == x+1){
+				currentTile.index = 5;
+				currentTile.collideDown = true;
+				curretnTile.collideLeft = true;
+			}
+			maze(x, y-1, x, y);
+		}
+		//going down
+		if(south.index == 8){
+			//from above
+			if(prevY == y-1){
+				currentTile.index = 3;
+				currentTile.collideLeft = true;
+				curretnTile.collideRight = true;
+			}
+			//from the left
+			if(prevX == x-1){
+				currentTile.index = 7;
+				currentTile.collideUp = true;
+				curretnTile.collideRight = true;
+			}
+			//from the right
+			if(prevX == x+1){
+				currentTile.index = 6;
+				currentTile.collideUp = true;
+				curretnTile.collideLeft = true;
+			}
+			maze(x, y+1, x, y);
+		}
+		if(east.index == 8){
+			//from above
+			if(prevY == y-1){
+				currentTile.index = 5;
+				currentTile.collideLeft = true;
+				curretnTile.collideDown = true;
+			}
+			//from below
+			if(prevY == y+1){
+				currentTile.index = 6;
+				currentTile.collideUp = true;
+				curretnTile.collideLeft = true;
+			}
+			//from the left
+			if(prevX == x-1){
+				currentTile.index = 2;
+				currentTile.collideUp = true;
+				curretnTile.collideDown = true;
+			}
+			maze(x+1, y, x, y);
+		}
+		if(west.index == 8){
+			//from above
+			if(prevY == y-1){
+				currentTile.index = 4;
+				currentTile.collideRight = true;
+				curretnTile.collideDown = true;
+			}
+			//from below
+			if(prevY == y+1){
+				currentTile.index = 7;
+				currentTile.collideUp = true;
+				curretnTile.collideRight = true;
+			}
+			//from the right
+			if(prevX == x+1){
+				currentTile.index = 2;
+				currentTile.collideUp = true;
+				curretnTile.collideDown = true;
+			}
+			maze(x-1, y, x, y);
+		}
 	}
-	//else no direction to go and return.
+	else{
+		return;
+	}
 
 }
  
